@@ -79,18 +79,6 @@ const addBookHandler = (request, h) => {
 const getAllBooksHandler = (request, h) => {
   const { name, reading, finished } = request.query;
 
-  if (books.length === 0) {
-    const response = h.response({
-      status: 'success',
-      data: {
-        books: [],
-      },
-    });
-
-    response.code(200);
-    return response;
-  }
-
   let filterBook = books;
 
   if (typeof name !== 'undefined') {
@@ -110,6 +98,18 @@ const getAllBooksHandler = (request, h) => {
     name: book.name,
     publisher: book.publisher,
   }));
+
+  if (books.length === 0) {
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: [],
+      },
+    });
+
+    response.code(200);
+    return response;
+  }
 
   const response = h.response({
     status: 'success',
